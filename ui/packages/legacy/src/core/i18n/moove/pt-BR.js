@@ -8,7 +8,7 @@ const moove = {
   'moove.column.todo': 'A Fazer',
   'moove.column.doing': 'Em desenvolvimento',
   'moove.column.enterTagName': 'Entre com o nome da release candidate:',
-  'moove.column.enterTagName.error': 'O nome da release deve ter entre 2 e 63 caracteres!',
+  'moove.column.enterTagName.error': 'O nome da release deve ter entre 2 e 35 caracteres!',
   'moove.column.readyToGo': 'Pronto',
   'moove.column.readyToTeamValidation': 'Pronto para time de validação',
   'moove.column.teamValidation': 'Time de validação',
