@@ -1,14 +1,14 @@
 replicaCount: 1
 envVars:
   - name: REACT_APP_API_URI
-    value: /
+    value: "http://35.202.130.175"
 
 
 appname: darwin-ui-new
   
 image:
   repository: darwin-ui-new
-  tag: realwavelab.azurecr.io/darwin-ui-new:darwin-workspace-rc-12
+  tag: realwavelab.azurecr.io/darwin-ui-new:darwin-empty-basepath
   blueTag: latest
 service:
   name: darwin-ui-new-web

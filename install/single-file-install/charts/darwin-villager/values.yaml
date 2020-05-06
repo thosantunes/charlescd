@@ -20,7 +20,7 @@ appname: darwin-villager
 
 image:
   repository: darwin-villager
-  tag: realwavelab.azurecr.io/darwin-villager:darwin-release-darwin-workspace-rc-5
+  tag: realwavelab.azurecr.io/darwin-villager:darwin-v-0-1-0-rc-1
   blueTag: latest
 service:
   name: darwin-villager

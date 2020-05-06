@@ -3,19 +3,19 @@ envVars:
   - name: SPRING_PROFILES_ACTIVE
     value: "redis-standalone"
   - name: SPRING_REDIS_HOST
-    value: "charles-redis-master"
+    value: "redis-master"
   - name: SPRING_REDIS_PORT
     value: 6379
   - name: SPRING_REDIS_PASSWORD
     value: "firstpassword"
   - name: ALLOWED_ORIGINS
-    value: "localhost:3000"
+    value: "*"
   
 appname: darwin-circle-matcher
 
 image:
   repository: darwin-circle-matcher
-  tag: realwavelab.azurecr.io/darwin-circle-matcher:darwin-release-darwin-workspace-rc-5
+  tag: realwavelab.azurecr.io/darwin-circle-matcher:darwin-v-0-1-0-rc-1
   blueTag: latest
 service:
   name: darwin-circle-matcher

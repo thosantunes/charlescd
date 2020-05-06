@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: darwin-deploy
-  tag: realwavelab.azurecr.io/darwin-deploy:darwin-release-darwin-workspace-rc-5
+  tag: realwavelab.azurecr.io/darwin-deploy:darwin-v-0-1-0-rc-1
   blueTag: latest
 
 envVars:

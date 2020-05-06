@@ -12,7 +12,9 @@ data:
     \       location /moove {\n          rewrite /moove/(.*) /$1  break;\n          proxy_pass
     \     http://darwin-application:8080;\n        }\n\n        location /notifications
     {\n          rewrite /notifications/(.*) /$1 break;\n          proxy_pass      http://darwin-notifications:8080;\n
-    \       }   \n\n        location ^~ /keycloak {\n          proxy_set_header X-Forwarded-For
+    \       }\n\n        location /darwin-circle-matcher {\n          rewrite /darwin-circle-matcher/(.*)
+    /$1 break;\n          proxy_pass      http://darwin-circle-matcher:8080;\n        }
+    \   \n\n        location ^~ /keycloak {\n          proxy_set_header X-Forwarded-For
     $host;\n          proxy_set_header\n          X-Forwarded-Proto $scheme;\n          proxy_set_header
     Upgrade $http_upgrade;\n          proxy_set_header Connection ‘upgrade’;\n          proxy_set_header
     Host $host;\n          proxy_pass      http://keycloak-http:8080;\n        }  \n\n

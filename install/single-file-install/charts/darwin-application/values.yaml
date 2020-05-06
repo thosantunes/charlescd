@@ -15,7 +15,7 @@ envVars:
   - name: KEYCLOAK_CLIENT_ID
     value: "realm-darwin"
   - name: KEYCLOAK_CLIENT_SECRET
-    value: "f2dc9337-9aaf-461f-9c7f-d02a0439ae4d"
+    value: "7ab3efee-20a1-4539-b595-65e06dd132c3"
   - name: ORIGIN_HOSTS
     value: "http://localhost:3000,http://localhost:3001,http://localhost:8081,http://localhost:8080,https://charles.continuousplatform.com"
 
@@ -28,7 +28,7 @@ appname: darwin-application
     
 image:
   repository: darwin-application
-  tag: realwavelab.azurecr.io/darwin-application:darwin-workspace-rc-13
+  tag: realwavelab.azurecr.io/darwin-application:darwin-v-0-1-0-rc-1
   blueTag: latest
 service:
   name: darwin-application
