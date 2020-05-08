@@ -5,3 +5,4 @@ rm -rf charles.yaml
 for i in ${modules[@]}; do
   helm template $i "./charts/$i" --namespace=charles >> charles.yaml
 done
+ 
