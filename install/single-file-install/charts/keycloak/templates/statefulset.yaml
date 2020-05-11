@@ -47,8 +47,8 @@ spec:
         - name: {{ . }}
       {{- end }}
     {{- end }}
-    {{- if or .Values.keycloak.persistence.deployPostgres .Values.keycloak.extraInitContainers }}
-      initContainers:
+    {{- if or .Values.keycloak.persistence.deployPostgres .Values.keycloak.extrainitContainer }}
+      initContainer:
       {{- if .Values.keycloak.persistence.deployPostgres }}
         - name: wait-for-postgresql
           image: "{{ .Values.init.image.repository }}:{{ .Values.init.image.tag }}"
@@ -67,7 +67,7 @@ spec:
           resources:
             {{- toYaml .Values.init.resources | nindent 12 }}
       {{- end }}
-      {{- with .Values.keycloak.extraInitContainers }}
+      {{- with .Values.keycloak.extrainitContainer }}
         {{- tpl . $ | nindent 8 }}
       {{- end }}
     {{- end }}
