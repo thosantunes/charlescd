@@ -69,8 +69,8 @@ spec:
       {{- if .Values.serviceAccount.enabled }}
       serviceAccountName: {{ default (include "postgresql.fullname" . ) .Values.serviceAccount.name}}
       {{- end }}
-      {{- if or .Values.slave.extraInitContainers (and .Values.volumePermissions.enabled (or .Values.persistence.enabled (and .Values.shmVolume.enabled .Values.shmVolume.chmod.enabled))) }}
-      initContainers:
+      {{- if or .Values.slave.extrainitContainer (and .Values.volumePermissions.enabled (or .Values.persistence.enabled (and .Values.shmVolume.enabled .Values.shmVolume.chmod.enabled))) }}
+      initContainer:
       {{- if and .Values.volumePermissions.enabled (or .Values.persistence.enabled (and .Values.shmVolume.enabled .Values.shmVolume.chmod.enabled)) }}
         - name: init-chmod-data
           image: {{ template "postgresql.volumePermissions.image" . }}
@@ -112,8 +112,8 @@ spec:
               mountPath: /dev/shm
             {{- end }}
       {{- end }}
-      {{- if .Values.slave.extraInitContainers }}
-{{ tpl .Values.slave.extraInitContainers . | indent 8 }}
+      {{- if .Values.slave.extrainitContainer }}
+{{ tpl .Values.slave.extrainitContainer . | indent 8 }}
       {{- end }}
       {{- end }}
       {{- if .Values.slave.priorityClassName }}

@@ -1,0 +1,85 @@
+replicaCount: 1
+envVars:
+  - name: SPRING_PROFILES_ACTIVE
+    value: "k8s"
+  - name: DB_URL
+    value: "jdbc:postgresql://postgresql:5432/charlesmoove"
+  - name: DB_USERNAME
+    value: "postgres"
+  - name: DB_PASSWORD
+    value: "firstpassword"
+  - name: KEYCLOCK_REALM
+    value: "darwin"
+  - name: KEYCLOAK_SERVER_URL
+    value: "http://keycloak-http/auth"
+  - name: KEYCLOAK_CLIENT_ID
+    value: "realm-darwin"
+  - name: KEYCLOAK_CLIENT_SECRET
+    value: "7ab3efee-20a1-4539-b595-65e06dd132c3"
+  - name: ORIGIN_HOSTS
+    value: "http://localhost:3000,http://localhost:3001,http://localhost:8081,http://localhost:8080,https://charles.continuousplatform.com"
+
+secretEnvVars:
+  - name: ENCRYPTION_KEY
+    secretName: "application-aes256-key"
+    secretKey: "encryption-key"
+
+appname: charles-moove
+    
+image:
+  repository: darwin-application
+  tag: darwin-v-0-1-0-rc-1
+  registry: realwavelab.azurecr.io
+service:
+  name: charles-moove
+  type: ClusterIP
+  ports:
+   - name: http
+     port: 8080
+configmaps:
+  enabled: false
+startcommand: 
+  enabled: false
+  value: ""
+ingress:
+  enabled: false
+resources:
+   limits:
+    cpu: 512m
+    memory: 1024Mi
+   requests:
+    cpu: 128m
+    memory: 128Mi
+nodeSelector: {}
+tolerations: []
+affinity: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  httpGet:
+    path: /actuator/health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 100
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /actuator/health
+    port: 8080
+    scheme: HTTP  
+  initialDelaySeconds: 100
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 1   
+
+istio:
+  enabled: true
+
+initContainer:
+  enabled: true
+  name: postgres-check
+  image: postgres:alpine
+  command: "['sh', '-c', 'until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done']"

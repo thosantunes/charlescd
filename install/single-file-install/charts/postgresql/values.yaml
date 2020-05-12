@@ -355,11 +355,11 @@ master:
   ## Extra init containers
   ## Example
   ##
-  ## extraInitContainers:
+  ## extrainitContainer:
   ##   - name: do-something
   ##     image: busybox
   ##     command: ['do', 'something']
-  extraInitContainers: []
+  extrainitContainer: []
 
   ## Additional PostgreSQL Master Volume mounts
   ##
@@ -403,7 +403,7 @@ slave:
   podLabels: {}
   podAnnotations: {}
   priorityClassName: ""
-  extraInitContainers: |
+  extrainitContainer: |
     # - name: do-something
     #   image: busybox
     #   command: ['do', 'something']

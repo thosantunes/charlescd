@@ -1,15 +1,5 @@
 ---
-# Source: darwin-application/templates/secret-lab.yaml
-apiVersion: v1
-data:
-  .dockerconfigjson: eyJhdXRocyI6IHsicmVhbHdhdmVsYWIuYXp1cmVjci5pbyI6IHsiYXV0aCI6ICJjbVZoYkhkaGRtVnNZV0k2TDNWVk4xQkNlbGhHZWsxc2RteGlVVnBYVkVoUVFWQnhhak00YW1aTVZqRT0ifX19
-kind: Secret
-metadata:
-  name: realwavelab-registry
-  namespace: charles
-type: kubernetes.io/dockerconfigjson
----
-# Source: darwin-application/templates/secrets.yaml
+# Source: charles-moove/templates/secrets.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -18,14 +8,14 @@ type: Opaque
 data:
   encryption-key: OGVhMzY4OGYtYmUxOS00YWU2LTljNmMtZDFhNjAzNjAyYTJm
 ---
-# Source: darwin-application/templates/service.yaml
+# Source: charles-moove/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: darwin-application
-    service: darwin-application
-  name: darwin-application
+    app: charles-moove
+    service: charles-moove
+  name: charles-moove
   namespace: charles
 spec:
   ports:
@@ -34,40 +24,40 @@ spec:
       targetPort: 8080
     
   selector:
-    app: darwin-application
+    app: charles-moove
 ---
-# Source: darwin-application/templates/deployment.yaml
+# Source: charles-moove/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: darwin-application
+  name: charles-moove
   namespace: charles
   labels:
-    app: darwin-application
-    version: darwin-application
+    app: charles-moove
+    version: charles-moove
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: darwin-application
-      version: darwin-application
+      app: charles-moove
+      version: charles-moove
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: 'true' 
       labels:
-        app: darwin-application
-        version: darwin-application
+        app: charles-moove
+        version: charles-moove
     spec:
       serviceAccountName: default
-      initContainers:
-        - name: postgres
+      initContainer:
+        - name: postgres-check
           image: postgres:alpine
-          command: ['sh', '-c', "until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done"]
+          command: ['sh', '-c', 'until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done']
       
       containers:
-        - name: darwin-application
-          image: "realwavelab.azurecr.io/darwin-application:darwin-v-0-1-0-rc-1"
+        - name: charles-moove
+          image: realwavelab.azurecr.io/darwin-application:darwin-v-0-1-0-rc-1
           
           livenessProbe:
             failureThreshold: 3
@@ -75,7 +65,7 @@ spec:
               path: /actuator/health
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 120
+            initialDelaySeconds: 100
             periodSeconds: 20
             successThreshold: 1
             timeoutSeconds: 1
@@ -85,7 +75,7 @@ spec:
               path: /actuator/health
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 120
+            initialDelaySeconds: 100
             periodSeconds: 20
             successThreshold: 1
             timeoutSeconds: 1
@@ -118,23 +108,20 @@ spec:
                 name: application-aes256-key
                 key: encryption-key
           
-          
-                    
+                  
           resources:
             limits:
-              cpu: 1
-              memory: 1536Mi
+              cpu: 512m
+              memory: 1024Mi
             requests:
               cpu: 128m
               memory: 128Mi
      
      
-     
-     
       imagePullSecrets:
-      - name: realwavelab-registry
+      - name: realwavelab.azurecr.io-registry
 ---
-# Source: darwin-deploy/templates/secrets.yaml
+# Source: charles-deploy/templates/secrets.yaml
 apiVersion: v1
 data:
   encryption-key: QzYzOUE1NzJFMTRENTA3NUM1MjZGRERENDNFNEVDRjZCMDk1RUExNzc4M0QzMkVGM0QyNzEwQUY5RjM1OURENA==
@@ -143,14 +130,14 @@ metadata:
   name: deploy-aes256-key
 type: Opaque
 ---
-# Source: darwin-deploy/templates/service.yaml
+# Source: charles-deploy/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: darwin-deploy
-    service: darwin-deploy
-  name: darwin-deploy
+    app: charles-deploy
+    service: charles-deploy
+  name: charles-deploy
   namespace: charles
 spec:
   ports:
@@ -159,40 +146,40 @@ spec:
       targetPort: 3000
     
   selector:
-    app: darwin-deploy
+    app: charles-deploy
 ---
-# Source: darwin-deploy/templates/deployment.yaml
+# Source: charles-deploy/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: darwin-deploy
+  name: charles-deploy
   namespace: charles
   labels:
-    app: darwin-deploy
-    version: darwin-deploy
+    app: charles-deploy
+    version: charles-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: darwin-deploy
-      version: darwin-deploy
+      app: charles-deploy
+      version: charles-deploy
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: 'true' 
       labels:
-        app: darwin-deploy
-        version: darwin-deploy
+        app: charles-deploy
+        version: charles-deploy
     spec:
       serviceAccountName: default
-      initContainers:
-        - name: postgres
+      initContainer:
+        - name: postgres-check
           image: postgres:alpine
-          command: ['sh', '-c', "until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done"]
+          command: ['sh', '-c',  'until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done']
       
       containers:
-        - name: darwin-deploy
-          image: "realwavelab.azurecr.io/darwin-deploy:darwin-v-0-1-0-rc-1"
+        - name: charles-deploy
+          image: realwavelab.azurecr.io/darwin-deploy:darwin-v-0-1-0-rc-1
           
           livenessProbe:
             failureThreshold: 3
@@ -231,13 +218,13 @@ spec:
           - name: DATABASE_NAME
             value: "charlesdeploy"
           - name: MOOVE_URL
-            value: "http://darwin-application:8080"
+            value: "http://charles-moove:8080"
           - name: DARWIN_NOTIFICATION_URL
-            value: "http://darwin-deploy.charles.svc.cluster.local:3000/notifications"
+            value: "http://charles-deploy.charles.svc.cluster.local:3000/notifications"
           - name: DARWIN_UNDEPLOYMENT_CALLBACK
-            value: "http://darwin-deploy.charles.svc.cluster.local:3000/notifications/undeployment"
+            value: "http://charles-deploy.charles.svc.cluster.local:3000/notifications/undeployment"
           - name: DARWIN_DEPLOYMENT_CALLBACK
-            value: "http://darwin-deploy.charles.svc.cluster.local:3000/notifications/deployment"
+            value: "http://charles-deploy.charles.svc.cluster.local:3000/notifications/deployment"
           - name: SPINNAKER_URL
             value: "https://darwin-spinnaker-gate.continuousplatform.com"
           - name: SPINNAKER_GITHUB_ACCOUNT
@@ -249,30 +236,27 @@ spec:
                 name: deploy-aes256-key
                 key: encryption-key
           
-          
-                    
+                  
           resources:
             limits:
-              cpu: 1
-              memory: 1536Mi
+              cpu: 512m
+              memory: 1024Mi
             requests:
               cpu: 128m
               memory: 128Mi
      
      
-     
-     
       imagePullSecrets:
-      - name: realwavelab-registry
+      - name: realwavelab.azurecr.io-registry
 ---
-# Source: darwin-notifications/templates/service.yaml
+# Source: charles-notifications/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: darwin-notifications
-    service: darwin-notifications
-  name: darwin-notifications
+    app: charles-notifications
+    service: charles-notifications
+  name: charles-notifications
   namespace: charles
 spec:
   ports:
@@ -281,40 +265,40 @@ spec:
       targetPort: 8080
     
   selector:
-    app: darwin-notifications
+    app: charles-notifications
 ---
-# Source: darwin-notifications/templates/deployment.yaml
+# Source: charles-notifications/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: darwin-notifications
+  name: charles-notifications
   namespace: charles
   labels:
-    app: darwin-notifications
-    version: darwin-notifications
+    app: charles-notifications
+    version: charles-notifications
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: darwin-notifications
-      version: darwin-notifications
+      app: charles-notifications
+      version: charles-notifications
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: 'true' 
       labels:
-        app: darwin-notifications
-        version: darwin-notifications
+        app: charles-notifications
+        version: charles-notifications
     spec:
       serviceAccountName: default
-      initContainers:
-        - name: postgres
+      initContainer:
+        - name: postgres-check
           image: postgres:alpine
-          command: ['sh', '-c', "until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done"]
+          command: ['sh', '-c', 'until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done']
       
       containers:
-        - name: darwin-notifications
-          image: "realwavelab.azurecr.io/darwin-notifications:darwin-v-0-1-0-rc-1"
+        - name: charles-notifications
+          image: realwavelab.azurecr.io/charles-notifications:darwin-v-0-1-0-rc-1
           
           livenessProbe:
             failureThreshold: 3
@@ -322,7 +306,7 @@ spec:
               path: /actuator/health
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 120
+            initialDelaySeconds: 90
             periodSeconds: 20
             successThreshold: 1
             timeoutSeconds: 1
@@ -332,7 +316,7 @@ spec:
               path: /actuator/health
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 120
+            initialDelaySeconds: 90
             periodSeconds: 20
             successThreshold: 1
             timeoutSeconds: 1
@@ -350,29 +334,27 @@ spec:
             value: "firstpassword"
           
           
-                    
+                  
           resources:
             limits:
-              cpu: 1
-              memory: 1536Mi
+              cpu: 512m
+              memory: 1024mi
             requests:
               cpu: 128m
               memory: 128Mi
      
      
-     
-     
       imagePullSecrets:
-      - name: realwavelab-registry
+      - name: realwavelab.azurecr.io-registry
 ---
-# Source: darwin-ui-legacy/templates/service.yaml
+# Source: charles-ui-legacy/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: darwin-ui-legacy
-    service: darwin-ui-legacy
-  name: darwin-ui-legacy
+    app: charles-ui-legacy
+    service: charles-ui-legacy
+  name: charles-ui-legacy
   namespace: charles
 spec:
   ports:
@@ -381,35 +363,35 @@ spec:
       targetPort: 3000
     
   selector:
-    app: darwin-ui-legacy
+    app: charles-ui-legacy
 ---
-# Source: darwin-ui-legacy/templates/deployment.yaml
+# Source: charles-ui-legacy/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: darwin-ui-legacy
+  name: charles-ui-legacy
   namespace: charles
   labels:
-    app: darwin-ui-legacy
-    version: darwin-ui-legacy
+    app: charles-ui-legacy
+    version: charles-ui-legacy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: darwin-ui-legacy
-      version: darwin-ui-legacy
+      app: charles-ui-legacy
+      version: charles-ui-legacy
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: 'true' 
       labels:
-        app: darwin-ui-legacy
-        version: darwin-ui-legacy
+        app: charles-ui-legacy
+        version: charles-ui-legacy
     spec:
       serviceAccountName: default
       containers:
-        - name: darwin-ui-legacy-web
-          image: "realwavelab.azurecr.io/darwin-ui-legacy:darwin-hostname-cookie"
+        - name: charles-ui-legacy-web
+          image: realwavelab.azurecr.io/darwin-ui-legacy:darwin-hostname-cookie
           
           livenessProbe:
             failureThreshold: 3
@@ -445,29 +427,27 @@ spec:
             value: "/darwin-circle-matcher"
           
           
-                    
+                  
           resources:
             limits:
-              cpu: 1
-              memory: 1536Mi
+              cpu: 512m
+              memory: 1024Mi
             requests:
               cpu: 128m
               memory: 128Mi
      
      
-     
-     
       imagePullSecrets:
-      - name: realwavelab-registry
+      - name: realwavelab.azurecr.io-registry
 ---
-# Source: darwin-ui-new/templates/service.yaml
+# Source: charles-ui-new/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: darwin-ui-new
-    service: darwin-ui-new
-  name: darwin-ui-new
+    app: charles-ui-new
+    service: charles-ui-new
+  name: charles-ui-new
   namespace: charles
 spec:
   ports:
@@ -476,35 +456,35 @@ spec:
       targetPort: 3000
     
   selector:
-    app: darwin-ui-new
+    app: charles-ui-new
 ---
-# Source: darwin-ui-new/templates/deployment.yaml
+# Source: charles-ui-new/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: darwin-ui-new
+  name: charles-ui-new
   namespace: charles
   labels:
-    app: darwin-ui-new
-    version: darwin-ui-new
+    app: charles-ui-new
+    version: charles-ui-new
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: darwin-ui-new
-      version: darwin-ui-new
+      app: charles-ui-new
+      version: charles-ui-new
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: 'true' 
       labels:
-        app: darwin-ui-new
-        version: darwin-ui-new
+        app: charles-ui-new
+        version: charles-ui-new
     spec:
       serviceAccountName: default
       containers:
-        - name: darwin-ui-new-web
-          image: "realwavelab.azurecr.io/darwin-ui-new:darwin-empty-basepath"
+        - name: charles-ui-new-web
+          image: realwavelab.azurecr.io/darwin-ui-new:darwin-empty-basepath
           
           livenessProbe:
             failureThreshold: 3
@@ -531,32 +511,30 @@ spec:
           
           env:
           - name: REACT_APP_API_URI
-            value: "http://35.202.130.175"
+            value: ""
           
           
-                    
+                  
           resources:
             limits:
-              cpu: 1
-              memory: 1536Mi
+              cpu: 512m
+              memory: 1024Mi
             requests:
               cpu: 128m
               memory: 128Mi
      
      
-     
-     
       imagePullSecrets:
-      - name: realwavelab-registry
+      - name: realwavelab.azurecr.io-registry
 ---
-# Source: darwin-villager/templates/service.yaml
+# Source: charles-villager/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: darwin-villager
-    service: darwin-villager
-  name: darwin-villager
+    app: charles-villager
+    service: charles-villager
+  name: charles-villager
   namespace: charles
 spec:
   ports:
@@ -565,40 +543,40 @@ spec:
       targetPort: 8080
     
   selector:
-    app: darwin-villager
+    app: charles-villager
 ---
-# Source: darwin-villager/templates/deployment.yaml
+# Source: charles-villager/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: darwin-villager
+  name: charles-villager
   namespace: charles
   labels:
-    app: darwin-villager
-    version: darwin-villager
+    app: charles-villager
+    version: charles-villager
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: darwin-villager
-      version: darwin-villager
+      app: charles-villager
+      version: charles-villager
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: 'true' 
       labels:
-        app: darwin-villager
-        version: darwin-villager
+        app: charles-villager
+        version: charles-villager
     spec:
       serviceAccountName: default
-      initContainers:
-        - name: postgres
+      initContainer:
+        - name: postgres-check
           image: postgres:alpine
-          command: ['sh', '-c', "until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done"]
+          command: ['sh', '-c', 'until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done']
       
       containers:
-        - name: darwin-villager
-          image: "realwavelab.azurecr.io/darwin-villager:darwin-v-0-1-0-rc-1"
+        - name: charles-villager
+          image: realwavelab.azurecr.io/darwin-villager:darwin-v-0-1-0-rc-1
           
           livenessProbe:
             failureThreshold: 3
@@ -640,20 +618,18 @@ spec:
             value: "pvMPbPPNNB"
           
           
-                    
+                  
           resources:
             limits:
-              cpu: 1
-              memory: 1536Mi
+              cpu: 512m
+              memory: 1024Mi
             requests:
               cpu: 128m
               memory: 128Mi
      
      
-     
-     
       imagePullSecrets:
-      - name: realwavelab-registry
+      - name: realwavelab.azurecr.io-registry
 ---
 # Source: keycloak/templates/realm-keycloak.yaml
 apiVersion: v1
@@ -1732,14 +1708,14 @@ spec:
   updateStrategy:
     type: RollingUpdate
 ---
-# Source: darwin-circle-matcher/templates/service.yaml
+# Source: charles-circle-matcher/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: darwin-circle-matcher
-    service: darwin-circle-matcher
-  name: darwin-circle-matcher
+    app: charles-circle-matcher
+    service: charles-circle-matcher
+  name: charles-circle-matcher
   namespace: charles
 spec:
   type: LoadBalancer
@@ -1749,35 +1725,35 @@ spec:
       targetPort: 8080
     
   selector:
-    app: darwin-circle-matcher
+    app: charles-circle-matcher
 ---
-# Source: darwin-circle-matcher/templates/deployment.yaml
+# Source: charles-circle-matcher/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: darwin-circle-matcher
+  name: charles-circle-matcher
   namespace: charles
   labels:
-    app: darwin-circle-matcher
-    version: darwin-circle-matcher
+    app: charles-circle-matcher
+    version: charles-circle-matcher
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: darwin-circle-matcher
-      version: darwin-circle-matcher
+      app: charles-circle-matcher
+      version: charles-circle-matcher
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: 'true' 
       labels:
-        app: darwin-circle-matcher
-        version: darwin-circle-matcher
+        app: charles-circle-matcher
+        version: charles-circle-matcher
     spec:
       serviceAccountName: default
       containers:
-        - name: darwin-circle-matcher
-          image: "realwavelab.azurecr.io/darwin-circle-matcher:darwin-v-0-1-0-rc-1"
+        - name: charles-circle-matcher
+          image: realwavelab.azurecr.io/darwin-circle-matcher:darwin-v-0-1-0-rc-1
           
           livenessProbe:
             failureThreshold: 3
@@ -1815,17 +1791,15 @@ spec:
             value: "*"
           
           
-                    
+                  
           resources:
             limits:
-              cpu: 1
-              memory: 1536Mi
+              cpu: 512m
+              memory: 1024mi
             requests:
               cpu: 128m
               memory: 128Mi
      
      
-     
-     
       imagePullSecrets:
-      - name: realwavelab-registry
+      - name: realwavelab.azurecr.io-registry

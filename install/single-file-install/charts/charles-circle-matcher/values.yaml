@@ -1,0 +1,68 @@
+replicaCount: 1
+envVars:
+  - name: SPRING_PROFILES_ACTIVE
+    value: "redis-standalone"
+  - name: SPRING_REDIS_HOST
+    value: "redis-master"
+  - name: SPRING_REDIS_PORT
+    value: 6379
+  - name: SPRING_REDIS_PASSWORD
+    value: "firstpassword"
+  - name: ALLOWED_ORIGINS
+    value: "*"
+  
+appname: charles-circle-matcher
+
+image:
+  repository: darwin-circle-matcher
+  tag: darwin-v-0-1-0-rc-1
+  registry: realwavelab.azurecr.io
+service:
+  name: charles-circle-matcher
+  type: LoadBalancer
+  ports:
+   - name: http
+     port: 8080
+configmaps:
+  enabled: false
+startcommand: 
+  enabled: false
+ingress:
+  enabled: false
+resources:
+   limits:
+    cpu: 512m
+    memory: 1024mi
+   requests:
+    cpu: 128m
+    memory: 128Mi
+nodeSelector: {}
+tolerations: []
+affinity: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  httpGet:
+    path: /actuator/health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /actuator/health
+    port: 8080
+    scheme: HTTP  
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1   
+
+istio:
+  enabled: true
+
+initContainer:
+  enabled: false

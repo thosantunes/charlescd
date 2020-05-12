@@ -59,7 +59,7 @@ Parameter | Description | Default
 `keycloak.jgroups.discoveryProtocol` | The protocol for JGroups discovery | `dns.DNS_PING`
 `keycloak.jgroups.discoveryProperties` | Properties for JGroups discovery. Passed through the `tpl` function | `"dns_query={{ template "keycloak.fullname" . }}-headless.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}"`
 `keycloak.javaToolOptions` | Java tool options | `"-XX:+UseContainerSupport -XX:MaxRAMPercentage=50.0"`
-`keycloak.extraInitContainers` | Additional init containers, e. g. for providing themes, etc. Passed through the `tpl` function and thus to be configured a string | `""`
+`keycloak.extrainitContainer` | Additional init containers, e. g. for providing themes, etc. Passed through the `tpl` function and thus to be configured a string | `""`
 `keycloak.extraContainers` | Additional sidecar containers, e. g. for a database proxy, such as Google's cloudsql-proxy. Passed through the `tpl` function and thus to be configured a string | `""`
 `keycloak.extraEnv` | Allows the specification of additional environment variables for Keycloak. Passed through the `tpl` function and thus to be configured a string. | `""`
 `keycloak.extraVolumeMounts` | Add additional volumes mounts, e. g. for custom themes. Passed through the `tpl` function and thus to be configured a string | `""`
@@ -157,7 +157,7 @@ $ helm install --name keycloak -f values.yaml codecentric/keycloak
 The `tpl` function allows us to pass string values from `values.yaml` through the templating engine.
 It is used for the following values:
 
-* `keycloak.extraInitContainers`
+* `keycloak.extrainitContainer`
 * `keycloak.extraContainers`
 * `keycloak.extraEnv`
 * `keycloak.affinity`
@@ -249,7 +249,7 @@ In combination with an `emptyDir` that is shared with the Keycloak container, co
 
 ```yaml
 keycloak:
-  extraInitContainers: |
+  extrainitContainer: |
     - name: theme-provider
       image: myuser/mytheme:1
       imagePullPolicy: IfNotPresent
@@ -386,7 +386,7 @@ If `keycloak.replicas > 1`, JGroups' DNS_PING is configured for cluster discover
 
 It is possible to monitor Keycloak with Prometheus through the use of plugins such as [keycloak-metrics-spi](https://github.com/aerogear/keycloak-metrics-spi). The plugin can be added with configuration like this:
 ```
-  extraInitContainers: |
+  extrainitContainer: |
     - name: extensions
       image: busybox
       imagePullPolicy: IfNotPresent

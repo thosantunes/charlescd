@@ -1,0 +1,6 @@
+apiVersion: v1
+appVersion: "1.0"
+description: charles notifications with k8s
+name: charles-notifications
+version: 'charles-release-charles-workspace-rc-5'
+

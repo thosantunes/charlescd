@@ -1,0 +1,5 @@
+apiVersion: v1
+appVersion: "1.0"
+description: charles deploy with k8s
+name: charles-deploy
+version: 'charles-release-charles-workspace-rc-5'

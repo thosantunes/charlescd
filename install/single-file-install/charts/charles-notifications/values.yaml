@@ -1,0 +1,70 @@
+replicaCount: 1
+envVars:
+  - name: SPRING_PROFILES_ACTIVE
+    value: "k8s"
+  - name: DB_URL
+    value: jdbc:postgresql://postgresql:5432/charlesnotifications
+  - name: DB_USERNAME
+    value: postgres
+  - name: DB_PASSWORD
+    value: firstpassword
+  
+  
+appname: charles-notifications
+
+image:
+  repository: charles-notifications
+  tag: darwin-v-0-1-0-rc-1
+  registry: realwavelab.azurecr.io
+service:
+  name: charles-notifications
+  type: ClusterIP
+  ports:
+   - name: http
+     port: 8080
+configmaps:
+  enabled: false
+startcommand: 
+  enabled: false
+ingress:
+  enabled: false
+resources:
+   limits:
+    cpu: 512m
+    memory: 1024mi
+   requests:
+    cpu: 128m
+    memory: 128Mi
+nodeSelector: {}
+tolerations: []
+affinity: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  httpGet:
+    path: /actuator/health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 90
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /actuator/health
+    port: 8080
+    scheme: HTTP  
+  initialDelaySeconds: 90
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 1   
+
+istio:
+  enabled: true
+
+initContainer:
+  enabled: true
+  name: postgres-check
+  image: postgres:alpine
+  command: "['sh', '-c', 'until pg_isready -U postgres -h postgresql; do echo notReady; sleep 2;done']"
