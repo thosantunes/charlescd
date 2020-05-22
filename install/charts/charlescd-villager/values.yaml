@@ -1,0 +1,68 @@
+replicaCount: 1
+
+envVars:
+  - name: SPRING_PROFILES_ACTIVE
+    value: k8s
+  - name: DARWIN_VILLAGER_DB_URI
+    value: jdbc:postgresql://charlescd-postgresql:5432/charlescd-villager
+  - name: DARWIN_VILLAGER_DB_USERNAME
+    value: charlescd-villager
+  - name: DARWIN_VILLAGER_DB_PASSWORD
+    value: ZkQ67Lnhs2bM3MPN
+  - name: DARWIN_BUILD_TIMEOUT
+    value: 15
+  - name: DARWIN_MOOVE_ORGANIZATION
+    value: zup
+  - name: CRYPT_KEY
+    value: pvMPbPPNNB
+
+appname: charlescd-villager
+
+image:
+  name: zupcharles/charlescd-villager:latest
+service:
+  name: charlescd-villager
+  type: ClusterIP
+  ports:
+   - name: http
+     port: 8080
+configmaps:
+  enabled: false
+startcommand:
+  enabled: false
+ingress:
+  enabled: false
+resources:
+   limits:
+    cpu: 1
+    memory: 1536Mi
+   requests:
+    cpu: 128m
+    memory: 128Mi
+nodeSelector: {}
+tolerations: []
+affinity: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 20
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 20
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 1
+
+istio:
+  enabled: true

@@ -1,0 +1,78 @@
+replicaCount: 1
+image:
+  name: zupcharles/charlescd-butler:latest
+
+envVars:
+  - name: DATABASE_HOST
+    value: "charlescd-postgresql"
+  - name: DATABASE_PORT
+    value: 5432
+  - name: DATABASE_USER
+    value: "charlescd-butler"
+  - name: DATABASE_PASS
+    value: "3f2Yq8R4HhDCnefR"
+  - name: DATABASE_NAME
+    value: "charlescd-butler"
+  - name: MOOVE_URL
+    value: "http://charlescd-moove:8080"
+  - name: DARWIN_NOTIFICATION_URL
+    value: "http://charlescd-butler.charles.svc.cluster.local:3000/notifications"
+  - name: DARWIN_UNDEPLOYMENT_CALLBACK
+    value: "http://charlescd-butler.charles.svc.cluster.local:3000/notifications/undeployment"
+  - name: DARWIN_DEPLOYMENT_CALLBACK
+    value: "http://charlescd-butler.charles.svc.cluster.local:3000/notifications/deployment"
+
+secretEnvVars:
+  - name: ENCRYPTION_KEY
+    secretName: "deploy-aes256-key"
+    secretKey: "encryption-key"
+
+appname: charlescd-butler
+
+service:
+  name: charlescd-butler
+  type: ClusterIP
+  ports:
+   - name: http
+     port: 3000
+configmaps:
+  enabled: false
+startcommand: 
+  enabled: false
+
+ingress:
+  enabled: false
+resources:
+   limits:
+    cpu: 1
+    memory: 1536Mi
+   requests:
+    cpu: 128m
+    memory: 128Mi
+nodeSelector: {}
+tolerations: []
+affinity: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  httpGet:
+    path: /healthcheck
+    port: 3000
+    scheme: HTTP
+  initialDelaySeconds: 30
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /healthcheck
+    port: 3000
+    scheme: HTTP  
+  initialDelaySeconds: 30
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 1   
+
+istio:
+  enabled: true

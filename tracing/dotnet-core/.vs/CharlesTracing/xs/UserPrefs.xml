@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{966C636C-D95B-461C-9396-F4D242D50196}|Default">
+  <MonoDevelop.Ide.ItemProperties.tests.Charles.Tracing.Sample PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/Charles.Tracing/HeaderPropagationOptions.cs">
+    <Files>
+      <File FileName="tests/Charles.Tracing.Sample/Startup.cs" Line="39" Column="46" />
+      <File FileName="tests/Charles.Tracing.Sample/Properties/launchSettings.json" />
+      <File FileName="src/Charles.Tracing/CharlesTracingExtension.cs" />
+      <File FileName="src/Charles.Tracing/HeaderPropagationOptions.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CharlesTracing" expanded="True" selected="True">
+            <Node name="src" expanded="True">
+              <Node name="Charles.Tracing" expanded="True" />
+            </Node>
+            <Node name="tests" expanded="True">
+              <Node name="Charles.Tracing.Sample" expanded="True">
+                <Node name="Properties" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/jose.martins/Projects/CharlesTracing/tests/Charles.Tracing.Tests/SampleTests.cs" relfile="tests/Charles.Tracing.Tests/SampleTests.cs" line="32" column="23" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
