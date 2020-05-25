@@ -1,0 +1,25 @@
+apiVersion: v1
+data:
+  nginx.conf: "user       nginx;  \nworker_processes  5;  \nworker_rlimit_nofile 8192;\nevents
+    {\n  worker_connections  4096;\n}\n\nhttp {\n   index    index.html index.htm
+    index.php;\n   \n   default_type application/octet-stream;\n   log_format   main
+    '$remote_addr - $remote_user [$time_local]  $status '\n    '\"$request\" $body_bytes_sent
+    \"$http_referer\" '\n    '\"$http_user_agent\" \"$http_x_forwarded_for\"';\n    sendfile
+    \    on;\n    tcp_nopush   on;\n    server_names_hash_bucket_size 128;\n    server
+    { \n        listen 80;\n        \n        location / {\n            proxy_pass
+    \  http://darwin-ui-legacy:3000;\n        }\n\n        location /v2 {\n          rewrite
+    /v2/(.*) /$1  break;\n          proxy_pass    http://darwin-ui-new:3000;\n        }\n\n
+    \       location /moove {\n          rewrite /moove/(.*) /$1  break;\n          proxy_pass
+    \     http://darwin-application:8080;\n        }\n\n        location /notifications
+    {\n          rewrite /notifications/(.*) /$1 break;\n          proxy_pass      http://darwin-notifications:8080;\n
+    \       }\n\n        location /darwin-circle-matcher {\n          rewrite /darwin-circle-matcher/(.*)
+    /$1 break;\n          proxy_pass      http://darwin-circle-matcher:8080;\n        }
+    \   \n\n        location ^~ /keycloak {\n          proxy_set_header X-Forwarded-For
+    $host;\n          proxy_set_header\n          X-Forwarded-Proto $scheme;\n          proxy_set_header
+    Upgrade $http_upgrade;\n          proxy_set_header Connection ‘upgrade’;\n          proxy_set_header
+    Host $host;\n          proxy_pass      http://keycloak-http:8080;\n        }  \n\n
+    \   }\n\n}"
+kind: ConfigMap
+metadata:
+  name: confnginx
+  namespace: charles

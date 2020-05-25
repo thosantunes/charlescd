@@ -4,9 +4,9 @@ envVars:
   - name: SPRING_PROFILES_ACTIVE
     value: k8s
   - name: DARWIN_VILLAGER_DB_URI
-    value: jdbc:postgresql://charlescd-postgresql:5432/charlescd-villager
+    value: jdbc:postgresql://charlescd-postgresql:5432/charlescd_villager
   - name: DARWIN_VILLAGER_DB_USERNAME
-    value: charlescd-villager
+    value: charlescd_villager
   - name: DARWIN_VILLAGER_DB_PASSWORD
     value: ZkQ67Lnhs2bM3MPN
   - name: DARWIN_BUILD_TIMEOUT

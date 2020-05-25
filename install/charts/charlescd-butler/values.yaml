@@ -8,11 +8,11 @@ envVars:
   - name: DATABASE_PORT
     value: 5432
   - name: DATABASE_USER
-    value: "charlescd-butler"
+    value: "charlescd_butler"
   - name: DATABASE_PASS
     value: "3f2Yq8R4HhDCnefR"
   - name: DATABASE_NAME
-    value: "charlescd-butler"
+    value: "charlescd_butler"
   - name: MOOVE_URL
     value: "http://charlescd-moove:8080"
   - name: DARWIN_NOTIFICATION_URL

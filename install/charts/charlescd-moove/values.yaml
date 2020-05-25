@@ -3,9 +3,9 @@ envVars:
   - name: SPRING_PROFILES_ACTIVE
     value: "k8s"
   - name: DB_URL
-    value: "jdbc:postgresql://charlescd-postgresql:5432/charlescd-moove"
+    value: "jdbc:postgresql://charlescd-postgresql:5432/charlescd_moove"
   - name: DB_USERNAME
-    value: "charlescd-moove"
+    value: "charlescd_moove"
   - name: DB_PASSWORD
     value: "7Qs2KuM9gYzw48BS"
   - name: KEYCLOCK_REALM
