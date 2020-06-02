@@ -1,7 +1,7 @@
 # Installing Charles
 
 {% hint style="info" %}
-The installing process was created considering some use cases, in which one of them you will find a specific tutorial. If you need to install CharlesCD in a different way, we suggest to check the **customized** section with isolated helm charts.
+The installation process was created considering some use cases, for each one of which there is a specific tutorial. If you need to install CharlesCD in a different way, we suggest to check the **custom** section with isolated helm charts.
 {% endhint %}
 
 ## Introduction
@@ -10,11 +10,10 @@ The installing process was created considering some use cases, in which one of t
 
 CharlesCD installation considers these components:
 
-1. Specific [**Charles architecture's** ](https://docs.charlescd.io/v/v0.2.1-eng/)modules. 
-2. **Keycloak**, used for authentication and authorization on the project. 
-
-3. A **PostgreSQL** database that will serve the back-end modules \(`charlescd-moove`, `charlescd-butler` e `charlescd-villager`\) and Keycloak. 
-4. A **Redis** for `charlescd-villager` usage.
+1. Seven specific modules of **Charles' architecture;** 
+2. **Keycloak**, used for product authentication and authorization;
+3. A **PostgreSQL database** for backend modules \( `charles-application`, `charles-circle-matcher`, deploy and villager\) and Keycloak; 
+4. A **Redis** to use the [**Circle Matcher**](https://docs.charlescd.io/referencia/circle-matcher). 
 
 ### Continuous Delivery Platform
 
