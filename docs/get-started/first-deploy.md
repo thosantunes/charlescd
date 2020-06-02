@@ -18,7 +18,7 @@ Here we will focus on the first approach with the following steps:
 
 After you have done the whole process above, your release will be ready to deploy.
 
-![Example of release created and ready to deploy](../.gitbook/assets/primeiro_deploy-1-%20%282%29%20%281%29.png)
+![](../.gitbook/assets/chrome-capture-4-%20%281%29.gif)
 
 Now, just follow the next steps to the [**Open Sea**](https://docs.charlescd.io/v/v0.2.1-en/key-concepts) deploy:
 
