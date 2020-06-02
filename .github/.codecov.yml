@@ -1,74 +1,91 @@
 coverage:
   status:
+    change: off
     project:
-      default:
-        target: auto
+       default: 
+        target: auto  
         threshold: 0%
-        flags: 
-          - villager
-          - circlematcher
-          - octopipe
-          - moove
-          - butler
-          - ui
+        if_not_found: success
+        
       villager:
         target: 30%
+        if_not_found: success
         flags:
           - villager
+      
       circlematcher:
         target: 70%
+        if_not_found: success
         flags:
           - circlematcher
+      
       octopipe:
         target: 30%
+        if_not_found: success
         flags:
           - octopipe
+      
       moove:
         target: 50%
+        if_not_found: success
         flags:
           - moove
-      butler:
-        target: 70%
-        flags:
-          - moove
-      butler:
-        target: 30%
-        flags:
-          - ui
+    
     patch:
-      default:
-        target: 100%
+     default: 
+        target: 80%
+        if_not_found: success
         threshold: 0%
-        flags: 
+        
+      villager:
+        target: 30%
+        if_not_found: success
+        flags:
           - villager
-          - circlematcher
-          - octopipe
-          - moove
-          - butler
-          - ui
       
+      circlematcher:
+        target: 70%
+        if_not_found: success
+        flags:
+          - circlematcher
+      
+      octopipe:
+        target: 30%
+        if_not_found: success
+        flags:
+          - octopipe
+      
+      moove:
+        target: 50%
+        if_not_found: success
+        flags:
+          - moove
+
 flags:
   villager:
     paths:
       - villager/src/main/java/
     carryforward: true
+  
   circlematcher:
     paths:
       - circle-matcher/src/main/java/
     carryforward: true
+  
   octopipe:
     paths:
       - octopipe/
     carryforward: true
+  
   moove:
     paths:
       - moove/
     carryforward: true
-  butler:
-    paths:
-      - butler/
-    carryforward: true
-  ui:
-    paths:
-      - ui/
-    carryforward: true
+
+ignore:
+  - "docs/**/*"
+  - ".github/**/*"
+  - "images/**/*"
+  - "butler/**/*"
+  - "ui/**/*"
+  - "tracing/**/*"
