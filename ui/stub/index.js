@@ -1,6 +1,6 @@
-const map = require("lodash/map");
-const Hapi = require("hapi");
-const routes = require("./routes");
+const map = require('lodash/map');
+const Hapi = require('hapi');
+const routes = require('./routes');
 
 function reduceDetails(acc, detail) {
   return Object.assign(acc, { [detail.index]: [detail.type] });
@@ -14,29 +14,29 @@ function failAction(request, reply, source, error) {
 
 const latency = 250;
 const server = new Hapi.Server({
-  host: "0.0.0.0",
+  host: '0.0.0.0',
   port: 8000,
   routes: {
     validate: {
       failAction
     },
     cors: {
-      origin: ["*"],
+      origin: ['*'],
       headers: [
-        "Authorization",
-        "Content-Type",
-        "x-workspace-id",
-        "x-circle-id"
+        'Authorization',
+        'Content-Type',
+        'x-workspace-id',
+        'x-circle-id'
       ],
-      exposedHeaders: ["Accept"],
-      additionalExposedHeaders: ["Accept"],
+      exposedHeaders: ['Accept'],
+      additionalExposedHeaders: ['Accept'],
       maxAge: 60,
       credentials: true
     }
   }
 });
 
-server.ext("onPreResponse", (request, reply) => {
+server.ext('onPreResponse', (request, reply) => {
   return new Promise(resolve =>
     setTimeout(() => resolve(reply.continue), latency)
   );
@@ -50,7 +50,7 @@ const init = async () => {
   console.log(`Server running at: ${server.info.uri}`);
 };
 
-process.on("unhandledRejection", err => {
+process.on('unhandledRejection', err => {
   console.log(err);
   process.exit(1);
 });

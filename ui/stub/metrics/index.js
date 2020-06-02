@@ -1,9 +1,9 @@
-const mock = require("./mock");
+const mock = require('./mock');
 
-const API = "/moove/metrics/circle/{circleId}/components";
+const API = '/moove/metrics/circle/{circleId}/components';
 
 const findCircleMetrics = {
-  method: "GET",
+  method: 'GET',
   path: `${API}`,
   handler: (req, h) => h.response(mock.CirclesMetrics)
 };

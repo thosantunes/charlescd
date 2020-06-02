@@ -1,9 +1,9 @@
-const mock = require("./mock");
+const mock = require('./mock');
 
-const API = "/moove/v2/configurations/git";
+const API = '/moove/v2/configurations/git';
 
 const create = {
-  method: "POST",
+  method: 'POST',
   path: `${API}`,
   handler: (req, h) => h.response(mock.newGit)
 };

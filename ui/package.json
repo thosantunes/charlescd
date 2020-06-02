@@ -34,7 +34,7 @@
     "test:coverage": "react-scripts test --watchAll=false --coverage",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
-    "lint": "eslint './src/**/*.{ts,tsx}'",
+    "lint": "eslint './stub/**/*.js' --fix",
     "build": "react-scripts build",
     "stub": "nodemon ./stub"
   },
