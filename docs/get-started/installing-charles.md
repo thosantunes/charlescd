@@ -23,12 +23,12 @@ At this moment, Charles can support two Continuous Delivery \(CD\) platforms:
 * **Octopipe:** a native platform created by CharlesCD's team to make easier an installation without previous configurations. 
 
 {% hint style="info" %}
-If you want more information about how to configure Spinnaker or Octopipe, check the  [**CD Configuration**](https://docs.charlescd.io/v/v0.2.1-eng/reference/cd-configuration) ****section.
+If you want more information about how to configure Spinnaker or Octopipe, check the [**CD Configuration**](https://docs.charlescd.io/v/v0.2.1-eng/reference/cd-configuration) _\*\*_section.
 {% endhint %}
 
 ## Main installation cases
 
-### Case \#1: Quick installation 
+### Case \#1: Quick installation
 
 This installation is recommended for those who never used Charles before and just want a **first contact on testing environment**, without looking for scalability or security.
 
@@ -48,33 +48,33 @@ kubectl apply -f arquivo.yaml
 At the end of the process, you will have in the `charles`namespace, all the modules of the product, as well as your installed dependencies in a simpler way.
 
 {% hint style="danger" %}
-This installation only works for testing environments, we do not recommend this use case for production environments, because it doesn't include database backup, high availability, etc. 
+This installation only works for testing environments, we do not recommend this use case for production environments, because it doesn't include database backup, high availability, etc.
 {% endhint %}
 
 ### Case \#2:  Installation with helm charts
 
-This installation is recommended for who has already setup your infrastructure due to a more complex environment or have some security or/and scalability limitations, which demands a more complete installation customization from CharlesCD. 
+This installation is recommended for who has already setup your infrastructure due to a more complex environment or have some security or/and scalability limitations, which demands a more complete installation customization from CharlesCD.
 
-### Prerequisites 
+### Prerequisites
 
-To perform this process, it is necessary to have the following programs: 
+To perform this process, it is necessary to have the following programs:
 
 * Kubectl
 * Helm 
 
 ### How does it work?
 
-The most different advantage on this installation is the customization. We will provide a **helm template** with all the available fields for modification, including the database and consumed resources. 
+The most different advantage on this installation is the customization. We will provide a **helm template** with all the available fields for modification, including the database and consumed resources.
 
 You will find here the **documentation with all the editable fields.**
 
 {% hint style="info" %}
 It is important to remember that, if there is no customization, the result will be the same as in the **use case \#1**, that follows a pattern to install PostgreSQL, Redis, Keycloak and Octopipe.
 
-So, don't forget to customize your fields if you want something manageable. 
+So, don't forget to customize your fields if you want something manageable.
 {% endhint %}
 
-To install, you have to run the following commands after customizing the fields: 
+To install, you have to run the following commands after customizing the fields:
 
 ```text
 // customize all you need in the file values.yaml before running the following commands
