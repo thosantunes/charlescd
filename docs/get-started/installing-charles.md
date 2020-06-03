@@ -45,7 +45,7 @@ kubectl create namespace charles
 kubectl apply -f arquivo.yaml
 ```
 
-At the end of the process, you will have in the `charles`namespace, all the modules of the product, as well as your installed dependencies in a simpler way.
+At the end of the process, you will have in the `charles`namespace all the modules of the product, as well as your installed dependencies in a simpler way. You will find on this link[ **the files on our repository**](https://raw.githubusercontent.com/ZupIT/charlescd/master/install/helm-chart/single-file.yaml)**.**
 
 {% hint style="danger" %}
 This installation only works for testing environments, we do not recommend this use case for production environments, because it doesn't include database backup, high availability, etc.
@@ -66,7 +66,7 @@ To perform this process, it is necessary to have the following programs:
 
 The most different advantage on this installation is the customization. We will provide a **helm template** with all the available fields for modification, including the database and consumed resources.
 
-You will find here the **documentation with all the editable fields.**
+You will find here the [**documentation with all the editable fields.**](https://github.com/ZupIT/charlescd/tree/master/install/helm-chart)\*\*\*\*
 
 {% hint style="info" %}
 It is important to remember that, if there is no customization, the result will be the same as in the **use case \#1**, that follows a pattern to install PostgreSQL, Redis, Keycloak and Octopipe.
