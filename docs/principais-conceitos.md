@@ -1,37 +1,39 @@
 ---
 description: >-
-  In this section, you will find the definitions of main concepts and
-  expressions used on Charles' platform and documentation.
+  Nesta seção, você encontra definições para os principais termos e expressões
+  utilizadas na documentação e na plataforma do Charles ou ainda em discussões
+  dentro da comunidade de desenvolvedores.
 ---
 
-# Key Concepts
-
-### Circles
-
-**Circles** are groups of users created from specific characteristics inside the same environment on Charles platform. The developer is able to segment users according to the rules AND/OR that will make more sense to test that release later. 
-
-For example, it is possible to [**create a circle**](https://docs.charlescd.io/v/v0.2.1-en/referencia-1/circles) of engineers from north of Brazil and another one from the southeast, and a third one with all brazilian engineers. Based on this client segmentation, it is possible to make a variety of deployment logics.   
-
-
-### **Hypothesis**
-
-They are [**registred alternatives**](https://docs.charlescd.io/v/v0.2.1-en/referencia-1/hipotese) on the platform to solve a problem or to validate changes on the application you have integrated on Charles. 
-
-Hypothesis can have features that are directly related to modules and/or projects that were previously registered in your workspace.   
-
+# Principais Conceitos
 
 ### **Circle Matcher**
 
-It is a HTPP service that allows you to identify which segmentation the application belongs to based on predefined logic rules. For that, Circle Matcher receives a JSON request with the user's attributes and also the circle identifier of which group that user belongs. 
+Trata-se de um serviço HTTP que permite você identificar a qual segmentação o usuário pertence, a partir de regras lógicas previamente definidas. Para isso, o ****[**Circle Matcher**](https://docs.charlescd.io/referencia/circle-matcher) ****recebe na requisição um JSON com os atributos sobre o usuário, e retorna uma lista de círculos.
 
-### **Components**
+### **Círculos**
 
-Components are part of the [**modules**](https://docs.charlescd.io/v/v0.2.1-en/primeiros-passsos/creating-your-first-module) you create on Charles. They work as an application abstraction, which means that they have their own configuration and every part of it belongs to a module application you are working on it.   
+\*\*\*\*[**Círculos**](https://docs.charlescd.io/referencia/circulos) ****são grupos de usuários criados a partir de características específicas dentro de um mesmo ambiente na plataforma do Charles. Dessa forma, o desenvolvedor pode segmentar os usuários de acordo com as regras \(AND ou OR\) que mais fizerem sentido para testar aquela release. 
 
+Por exemplo, é possível [**criar um círculo**](https://docs.charlescd.io/referencia/circulos) ****de engenheiros da região Norte do Brasil, outro de engenheiros do sudeste e um terceiro contendo todos os engenheiros brasileiros. Baseado nessa segmentação de clientes, pode-se elaborar diversas lógicas de deploy.
 
-### Open Sea
+### **Componentes**
 
-This term was originated with Charles and it's used to refer to a generic segmentation that are within all users inserted in the platform and that are not linked to a circle. 
+Fazem parte dos [**módulos**](https://docs.charlescd.io/primeiros-passsos/modules) que são criados dentro do Charles. Os componentes funcionam como abstrações das aplicações, o que significa dizer que eles possuem suas próprias configurações e que cada parte deles corresponde a uma aplicação do módulo em que você estiver trabalhando. Caso você trabalhe com um monorepo, cada uma das suas aplicações serão cadastradas como componentes dentro de um único módulo.
 
-For example, if you add 300 users to your database and don't specify which segmentation you want to direct your hypothesis, Charles will redirect it to all, that is when your hypothesis will fall into the open sea. 
+### **Hipóteses**
+
+Aplicando Desenvolvimento Orientado à Hipótese \(_Hypothesis-Driven Development_\) ou não, uma hipótese representará o desenvolvimento de uma nova ideia que será utilizada como experimento para alcançar um resultado esperado. Caso o resultado não seja atingido, novas hipóteses com outras abordagens podem ser criadas e mensuradas até que realmente se tenha o resultado desejado ou até mesmo se prove que a ideia não é viável.
+
+No Charles, as hipóteses podem conter uma ou mais features, que estão relacionadas diretamente aos módulos foram cadastrados anteriormente ao seu [**workspace**](https://docs.charlescd.io/primeiros-passos/definindo-workspace).
+
+### Mar Aberto \(Default\)
+
+O termo, cunhado com o Charles, se refere a uma segmentação genérica em que estão presentes todos os usuários inseridos na plataforma que não estão vinculados a um círculo. 
+
+Ou seja, nessa segmentação estará uma versão padrão da sua aplicação, onde todos os usuários, que não estão associados a um teste de hipóteses, acessarão. É nessa segmentação também que, dada uma hipótese validada, deverá ser implantada uma nova release para que todos acessem.
+
+### Módulos
+
+Módulo é a representação de um repositório no seu git. Além disso, um módulo pode conter uma ou mais aplicações, ou seja, um ou mais componentes.
 
