@@ -16,7 +16,7 @@ We work with monorepo concept on Charles. That means that you can find all of ou
 * Point out which branch do you want to create your pull request \(PR\); 
 
 {% hint style="info" %}
-It is important that, before you create a PR, just confirm if the request refers to the correct branch: for english documentation is `englishdocs`and for the portuguese documentation is `portuguesdocs.`
+It is important that, before you create a PR, just confirm if the request refers to the correct branch: for english documentation is `englishdocs`and for the portuguese documentation is `v0.2.1.`
 {% endhint %}
 
 * While you are writing, include the "Docs" label, so we are able to quickly identify that is a request for our documentation. 
