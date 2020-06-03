@@ -17,3 +17,14 @@ Each workspace has the following configuration:
 The **root** user gives you the permission to create a workspace. However, users with **mantainer** profile are able to configure with the necessary information as well.
 {% endhint %}
 
+### How to get an identifier on my workspace?  <a id="como-obter-o-identificador-do-meu-workspace"></a>
+
+Once your workspace is created, even without the configuration ****definitions**,** it already has a single identifier. 
+
+To get this information, select the workspace you want and then on the left menu, click on **Copy ID.**
+
+![](../../.gitbook/assets/workspaceid%20%282%29.gif)
+
+  
+
+
