@@ -1,4 +1,4 @@
-# Users Group
+# Users Groups
 
 A user group can represent a team or even a subset of people based on their skills.
 

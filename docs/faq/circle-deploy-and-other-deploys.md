@@ -4,7 +4,7 @@ description: >-
   circle deploy and other deployments methods.
 ---
 
-# Circle deploy x Other deploys
+# Circle deploy vs Other deploys
 
 ## Circle deploy x Traditional deploy
 
