@@ -13,14 +13,13 @@ No Charles, trabalhamos com o conceito de monorepo. Logo, você encontra todos o
 ### **Quer reportar alguma issue ou sugerir uma edição na doc?** 
 
 * Acesse nosso repositório no Github `ZupIT/charlescd`;
-* Indique para qual branch você quer atribuir ao seu pull request \(PR\);
+* Indique para qual branch você quer atribuir o seu pull request \(PR\);
 
 {% hint style="info" %}
-É importante que, antes de dá o PR, você confirme se a branch está correta. Para documentação em inglês é a `englishdocs`, enquanto que para a documentação em português é a `portuguesdocs`.
+É importante que, antes de abrir o PR, você confirme se a branch está correta. Para documentação em inglês é a `englishdocs`, enquanto que para a documentação em português é a `portuguesdocs`.
 {% endhint %}
 
-* Enquanto estiver escrevendo, inclua a tag "Docs" para sabermos do que se trata a sua solicitação. 
-* Depois de escrever o seu PR, basta clicar em "Create Pull Request". 
+* Enquanto estiver escrevendo, inclua a label "Docs" para identificarmos mais rapidamente que se trata de uma solicitação para nossa documentação. 
 
 O seu pull request passará por duas rodadas de revisão antes de ser publicada. 
 
