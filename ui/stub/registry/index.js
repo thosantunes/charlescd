@@ -1,4 +1,4 @@
-const mock = require('./mock');
+import mock from './mock';
 
 const API = '/moove/config/registry';
 
@@ -8,6 +8,6 @@ const create = {
   handler: (req, h) => h.response(mock.newRegistry)
 };
 
-module.exports = {
+export default {
   create
 };

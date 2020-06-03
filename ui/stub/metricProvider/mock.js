@@ -4,6 +4,6 @@ const newMetricProvider = {
   url: ''
 };
 
-module.exports = {
+export default {
   newMetricProvider
 };

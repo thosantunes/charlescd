@@ -233,7 +233,7 @@ const updateWorkspaceName = {
   authorId: 'a7c3e4b6-2be6-4d62-8540-e2d6d5f4e03f'
 };
 
-module.exports = {
+export default {
   workspaces,
   workspace,
   newWorkspace,

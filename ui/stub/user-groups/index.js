@@ -1,4 +1,4 @@
-const mock = require('./mock');
+import mock from './mock';
 
 const API = '/moove/v2/user-groups';
 
@@ -62,7 +62,7 @@ const deleteUserGroup = {
   }
 };
 
-module.exports = {
+export default {
   findAllUserGroup,
   findUserGroupById,
   saveUserGroup,

@@ -20,6 +20,6 @@ const newCDConfiuration = {
   }
 };
 
-module.exports = {
+export default {
   newCDConfiuration
 };

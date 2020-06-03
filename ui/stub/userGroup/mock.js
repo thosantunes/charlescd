@@ -3,6 +3,6 @@ const groupRoles = {
   roleId: '52c22f91-5320-4760-a013-701c31611aed'
 };
 
-module.exports = {
+export default {
   groupRoles
 };

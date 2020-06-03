@@ -1,4 +1,4 @@
-const mock = require('./mock');
+import mock from './mock';
 
 const API = '/moove/v2/modules';
 
@@ -76,7 +76,7 @@ const deleteCompoent = {
   handler: (req, h) => console.log(req.params)
 };
 
-module.exports = {
+export default {
   findAll,
   findById,
   create,

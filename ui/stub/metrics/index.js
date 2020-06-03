@@ -1,4 +1,4 @@
-const mock = require('./mock');
+import mock from './mock';
 
 const API = '/moove/metrics/circle/{circleId}/components';
 
@@ -8,6 +8,6 @@ const findCircleMetrics = {
   handler: (req, h) => h.response(mock.CirclesMetrics)
 };
 
-module.exports = {
+export default {
   findCircleMetrics
 };

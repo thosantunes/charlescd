@@ -1,4 +1,4 @@
-const mock = require('./mock');
+import mock from './mock';
 
 const API = '/auth/realms/darwin/protocol/openid-connect/token';
 
@@ -8,6 +8,6 @@ const keycloak = {
   handler: (req, h) => h.response(mock.auth)
 };
 
-module.exports = {
+export default {
   keycloak
 };

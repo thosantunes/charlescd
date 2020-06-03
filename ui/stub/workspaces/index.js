@@ -1,4 +1,4 @@
-const mock = require('./mock');
+import mock from './mock';
 
 const API = '/moove/v2/workspaces';
 
@@ -43,7 +43,7 @@ const updateName = {
   handler: (req, h) => h.response(mock.updateWorkspaceName)
 };
 
-module.exports = {
+export default {
   findAll,
   findById,
   saveWorkspaceName,

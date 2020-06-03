@@ -133,7 +133,7 @@ const updateComponent = {
   errorThreshold: '7.3'
 };
 
-module.exports = {
+export default {
   modules,
   defaultModule,
   newModule,

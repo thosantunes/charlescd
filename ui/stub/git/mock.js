@@ -8,6 +8,6 @@ const newGit = {
   }
 };
 
-module.exports = {
+export default {
   newGit
 };

@@ -175,7 +175,7 @@ const circle = {
   }
 };
 
-module.exports = {
+export default {
   circleID,
   circles,
   circle

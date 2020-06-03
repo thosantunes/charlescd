@@ -69,7 +69,7 @@ const CirclesMetrics = [
   }
 ];
 
-module.exports = {
+export default {
   CircleMetricsData,
   CirclesMetrics
 };

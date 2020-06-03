@@ -10,6 +10,6 @@ const newRegistry = {
   password: '123mudar'
 };
 
-module.exports = {
+export default {
   newRegistry
 };

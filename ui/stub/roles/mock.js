@@ -33,6 +33,6 @@ const roles = {
   last: true
 };
 
-module.exports = {
+export default {
   roles
 };

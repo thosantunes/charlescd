@@ -1,6 +1,8 @@
-const map = require('lodash/map');
-const Hapi = require('hapi');
-const routes = require('./routes');
+import map from 'lodash/map';
+import Hapi from 'hapi';
+import routes from './routes';
+
+const latency = 500;
 
 function reduceDetails(acc, detail) {
   return Object.assign(acc, { [detail.index]: [detail.type] });
@@ -12,7 +14,6 @@ function failAction(request, reply, source, error) {
   }).code(400);
 }
 
-const latency = 250;
 const server = new Hapi.Server({
   host: '0.0.0.0',
   port: 8000,

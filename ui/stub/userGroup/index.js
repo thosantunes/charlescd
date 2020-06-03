@@ -1,5 +1,5 @@
-const mock = require('./mock');
-const mockUserGroups = require('../user-groups/mock');
+import mock from './mock';
+import mockUserGroups from '../user-groups/mock';
 
 const API = '/moove/v2/workspaces';
 
@@ -30,7 +30,7 @@ const detach = {
   }
 };
 
-module.exports = {
+export default {
   create,
   detach
 };

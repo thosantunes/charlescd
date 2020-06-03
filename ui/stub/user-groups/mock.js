@@ -126,7 +126,7 @@ const updateUserGroup = {
   users: []
 };
 
-module.exports = {
+export default {
   userGroups,
   userGroup,
   createUserGroup,

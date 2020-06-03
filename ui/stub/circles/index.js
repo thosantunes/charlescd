@@ -1,4 +1,4 @@
-const mock = require('./mock');
+import mock from './mock';
 
 const API = '/moove/v2/circles';
 
@@ -46,7 +46,7 @@ const deleteCircleById = {
   }
 };
 
-module.exports = {
+export default {
   findAllCircles,
   findCircleById,
   deleteCircleById
