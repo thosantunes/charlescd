@@ -64,14 +64,14 @@ To run the process, you must have the following programs:
 
 ### How does it works?
 
-In this type of installation, the main difference is the customization. Because of that, we offer many **template helm** with all the available charts to change, including database and consumed resources. 
+This installation is recommended for who has already setup your infrastructure due to a more complex environment or have some security or/and scalability limitations, which demands a **more complete installation customization** from CharlesCD.
 
-You can find here all this [**documentation of editable charts.**](https://github.com/ZupIT/charlescd/blob/master/install/helm-chart/) 
+You can find here all this [**documentation of editable fields.**](https://github.com/ZupIT/charlescd/blob/master/install/helm-chart/) 
 
 {% hint style="info" %}
 It's important to remember that, in case of no customization at all, the final result is the same as in case \#1 in which, for standard, we install the PostgreSQL, Redis, Keycloak and Octopipe. 
 
-So, you must not forget to customize the charts in case you want something manageable. 
+So, you must not forget to customize the fields in case you want something manageable. 
 {% endhint %}
 
 To execute the installation, just run the command below after you customized the charts: 
