@@ -1,4 +1,4 @@
-# Creating your first Module
+# Creating your first module
 
 After creating and configuring your workspace, it is necessary to add the modules.
 
